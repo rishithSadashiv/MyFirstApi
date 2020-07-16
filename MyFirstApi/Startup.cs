@@ -25,6 +25,17 @@ namespace MyFirstApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            //cors
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options =>
+                options.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                );
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +54,10 @@ namespace MyFirstApi
             {
                 endpoints.MapControllers();
             });
+
+            //cors
+            app.UseCors("AllowMyOrigin");
+
         }
     }
 }
